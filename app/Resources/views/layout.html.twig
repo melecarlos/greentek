@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% block meta %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Greentek, Cotiza"/>
+    {% endblock %}
+    <title>{% block title %}Cotiza GreenTek{% endblock %}</title>
+    {% block css %}
+        <!-- Bootstrap -->
+        <link href="{{ asset('Resources/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="{{ asset('Resources/gentelella/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="{{ asset('Resources/gentelella/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+        <!-- Animate.css -->
+        <link href="{{ asset('Resources/gentelella/vendors/animate.css/animate.min.css')}}" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="{{ asset('Resources/gentelella/build/css/custom.min.css')}}" rel="stylesheet">
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body class="login">
+{% block body %}
+    <div class="container body">
+        <div class="main_container">
+        {% block contenido %}
+
+            {% block footerbuttons %}
+                <div class="sidebar-footer hidden-small">
+                </div>
+            {% endblock %}
+
+        {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ asset('Resources/gentelella/vendors/jquery/dist/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript"></script>
+{% endblock %}
+</body>
+</html>

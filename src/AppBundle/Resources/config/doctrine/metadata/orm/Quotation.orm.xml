@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Quotation" table="quotation">
+    <indexes>
+      <index name="fk_quotation_member1_idx" columns="member"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="kwh" type="float" column="kWh" precision="10" scale="0" nullable="false"/>
+    <field name="percentage" type="float" column="percentage" precision="10" scale="0" nullable="false"/>
+    <field name="kwp" type="float" column="KWp" precision="10" scale="0" nullable="true"/>
+    <field name="createdDate" type="datetime" column="created_date" nullable="true"/>
+    <many-to-one field="member" target-entity="Member" fetch="LAZY">
+      <join-columns>
+        <join-column name="member" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

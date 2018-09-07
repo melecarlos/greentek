@@ -1,0 +1,178 @@
+{% extends 'layout.html.twig' %}
+
+{% block contenido %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><b>Cotiza tu Sistema Fotovoltaico</b></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        {{ form_start(form) }}
+                            {% for q in form.quotations %}
+                            <div class="row">
+                                <div class="col-md-4 col-xs-12">
+                                    {{ form_label(q.kwh) }}
+                                    {{ form_widget(q.kwh) }}
+                                    {{ form_errors(q.kwh) }}
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    {{ form_label(q.percentage) }}
+                                    {{ form_widget(q.percentage) }}
+                                    {{ form_errors(q.percentage) }}
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    {{ form_label(q.kwp) }}
+                                    {{ form_widget(q.kwp) }}
+                                    {{ form_errors(q.kwp) }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    {{ form_label(form.forename) }}
+                                    {{ form_widget(form.forename) }}
+                                    {{ form_errors(form.forename) }}
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    {{ form_label(form.lastname) }}
+                                    {{ form_widget(form.lastname) }}
+                                    {{ form_errors(form.lastname) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    {% for e in form.emails %}
+                                        <div id="{{ loop.index }}" class="form-exists">
+                                        {{ form_label(e.email) }}
+                                        {{ form_widget(e.email) }}
+                                        {{ form_errors(e.email) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    {% for p in form.phones %}
+                                        <div id="{{ loop.index }}" class="form-exists">
+                                            {{ form_label(p.phone) }}
+                                            {{ form_widget(p.phone) }}
+                                            {{ form_errors(p.phone) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    {% for q in form.quotations %}
+                                        <div id="{{ loop.index }}" class="form-exists">
+                                            {{ form_label(q.installation) }}
+                                            {{ form_widget(q.installation) }}
+                                            {{ form_errors(q.installation) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                {% for c in form.companies %}
+                                    <div id="{{ loop.index }}" class="form-exists">
+                                        {{ form_label(c.name) }}
+                                        {{ form_widget(c.name) }}
+                                        {{ form_errors(c.name) }}
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                {% for m in form.messages %}
+                                    <div id="{{ loop.index }}" class="form-exists">
+                                        {{ form_label(m.message) }}
+                                        {{ form_widget(m.message) }}
+                                        {{ form_errors(m.message) }}
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    <br>
+                                    <center>{{ form_row(form.save) }}</center>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><b>Factura de Energía Eléctrica</b></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <center>
+                        <img src="{{asset('Resources/images/caess5.png')}}" class="img-responsive" alt="Consumo promedio" height="250" width="450">
+                        </center>
+                        <ol>
+                            <li value="1">PARA LA ESTIMACIÓN SE REQUIERE INGRESAR DE UN RECIBO DE ELECTRICIDAD EL PROMEDIO DE CONSUMO DE ENERGÍA EN LOS ÚLTIMOS 6 MESES TAL CUAL SE MUESTRA EN LA FIGURA.
+                            </li>
+                            <li value="2">POSTERIORMENTE ELIJA EL PORCENTAJE DE AHORRO QUE DESEA EN LA FACTURA. TENGA PRESENTE QUE A MAYOR PORCENTAJE DE AHORRO, MAYOR ES LA INVERSIÓN.
+                            </li>
+                            <li value="3">UNA VEZ HAYA ELEGIDO EL PORCENTAJE DE AHORRO, DEBERÁ DAR CLIC EN COTIZAR, ESTARÁ RECIBIENDO UN CORREO ELECTRÓNICO CON LA ESTIMACIÓN DEL COSTO DEL SISTEMA DESEADO.                            </li>
+                            <li value="4">SI DESEA OTRA COTIZACIÓN CON OTROS PORCENTAJES DE AHORRO, SIGA LOS PASOS ANTERIORES.
+                            </li>
+                        </ol>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#appbundle_member_quotations_0_percentage').change(function(){
+        var combo       = document.getElementById('appbundle_member_quotations_0_percentage');
+        var percentage  = combo.options[combo.selectedIndex].text;
+        percentage      = parseInt(percentage);
+        var kwh         = $('#appbundle_member_quotations_0_kwh').val();
+        if(kwh!=null && percentage!=null){
+            var url = '{{ path('member_calculo_potencia')}}';
+            $.post(url, {kwh: kwh, percentage: percentage}).done(function (data) {
+                if(data['status']=='success'){
+                    $('#appbundle_member_quotations_0_kwp').val(data['result']);
+                }
+            });
+        }
+    });
+    $('#appbundle_member_quotations_0_kwh').keyup(function(){
+        var combo       = document.getElementById('appbundle_member_quotations_0_percentage');
+        var percentage  = combo.options[combo.selectedIndex].text;
+        percentage      = parseInt(percentage);
+        var kwh         = $('#appbundle_member_quotations_0_kwh').val();
+        if(kwh!=null && percentage!=null){
+            var url = '{{ path('member_calculo_potencia')}}';
+            $.post(url, {kwh: kwh, percentage: percentage}).done(function (data) {
+                if(data['status']=='success'){
+                    $('#appbundle_member_quotations_0_kwp').val(data['result']);
+                }
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

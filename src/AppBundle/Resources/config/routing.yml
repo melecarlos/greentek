@@ -1,0 +1,8 @@
+app_index_default:
+    path:     /
+    defaults: { _controller: AppBundle:Member:new }
+
+app_annotations:
+    resource: "@AppBundle/Controller/"
+    prefix:   /
+    type:     annotation

@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block contenido %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title">
+                <h3><center>Cotización realizada con éxito</center></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <p align="center">Se te ha enviado un correo electrónico registrado para que puedas obtener detalles de la cotización del sistema fotovoltáico.</p>
+                        <center>
+                            <a href="{{ path('member_new') }}" class="btn btn-primary">Regresar</a>
+                        </center>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

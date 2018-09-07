@@ -1,0 +1,51 @@
+AppBundle\Entity\Member:
+    properties:
+        lastname:
+            - NotBlank:
+                message: Por favor ingrese sus apellidos
+        forename:
+            - NotBlank:
+                message: Por favor ingrese sus nombres
+
+
+AppBundle\Entity\Email:
+    properties:
+        email:
+          - NotBlank:
+              message: Ingrese el correo electrónico
+          - Email:
+              message: Correo electrónico no válido
+              checkMX: true
+
+AppBundle\Entity\Phone:
+    properties:
+        phone:
+          - NotBlank:
+              message: Teléfono vacio
+          - Regex:
+              pattern: '/\D/'
+              match:   false
+              message: Ingrese números.
+
+AppBundle\Entity\Company:
+    properties:
+        name:
+          - NotBlank:
+              message: Ingrese el nombre de la empresa
+
+
+AppBundle\Entity\Quotation:
+    properties:
+        kwh:
+          - NotBlank:
+              message: Ingrese el consumo
+          - Regex:
+              pattern: '/\D/'
+              match:   false
+              message: Ingrese números.
+        percentage:
+          - NotBlank:
+              message: Seleccione un porcentaje
+        kwp:
+          - NotBlank:
+              message: La potencia no puede ser nula

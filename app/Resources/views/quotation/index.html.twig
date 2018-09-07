@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Quotations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Kwh</th>
+                <th>Percentage</th>
+                <th>Kwp</th>
+                <th>Createddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quotation in quotations %}
+            <tr>
+                <td><a href="{{ path('quotation_show', { 'id': quotation.id }) }}">{{ quotation.id }}</a></td>
+                <td>{{ quotation.kwh }}</td>
+                <td>{{ quotation.percentage }}</td>
+                <td>{{ quotation.kwp }}</td>
+                <td>{% if quotation.createdDate %}{{ quotation.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quotation_show', { 'id': quotation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quotation_edit', { 'id': quotation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quotation_new') }}">Create a new quotation</a>
+        </li>
+    </ul>
+{% endblock %}
