@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block contenido %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h3><center>El usuario {{ member.login.username }} a sido creado con éxito</center></h3>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <center>
+                                <a href="{{ path('login') }}" class="btn btn-primary">Iniciar sesión</a>
+                            </center>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

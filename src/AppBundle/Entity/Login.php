@@ -1,16 +1,19 @@
 <?php
 
 namespace AppBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Login
  *
  * @ORM\Table(name="login", indexes={@ORM\Index(name="fk_login_member1_idx", columns={"member"})})
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity
  */
-class Login
+class Login implements UserInterface
 {
     /**
      * @var integer
@@ -58,8 +61,8 @@ class Login
 
     /**
      * @var \Member
-     *
-     * @ORM\ManyToOne(targetEntity="Member")
+     * @Assert\Valid
+     * @ORM\OneToOne(targetEntity="Member", inversedBy="login")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="member", referencedColumnName="id")
      * })
@@ -69,7 +72,7 @@ class Login
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="login")
+     * @ORM\ManyToMany(targetEntity="Roles", inversedBy="login")
      * @ORM\JoinTable(name="login_role",
      *   joinColumns={
      *     @ORM\JoinColumn(name="login", referencedColumnName="id")
@@ -148,6 +151,14 @@ class Login
         return $this->password;
     }
 
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
     /**
      * Set ip
      *
@@ -194,6 +205,14 @@ class Login
     public function getCreatedDate()
     {
         return $this->createdDate;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedDateValue()
+    {
+        $this->createdDate = new \DateTime();
     }
 
     /**
@@ -251,7 +270,7 @@ class Login
      *
      * @return Login
      */
-    public function addRole(\AppBundle\Entity\Role $role)
+    public function addRole(\AppBundle\Entity\Roles $role)
     {
         $this->role[] = $role;
 
@@ -263,9 +282,14 @@ class Login
      *
      * @param \AppBundle\Entity\Role $role
      */
-    public function removeRole(\AppBundle\Entity\Role $role)
+    public function removeRole(\AppBundle\Entity\Roles $role)
     {
         $this->role->removeElement($role);
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
     /**
@@ -273,8 +297,39 @@ class Login
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRole()
+    public function getRoles()
     {
-        return $this->role;
+        return $this->role->toArray();
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * Erases the user credentials.
+     */
+    public function eraseCredentials()
+    {
     }
 }

@@ -3,14 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\Role\Role;
 /**
  * Role
  *
  * @ORM\Table(name="role")
  * @ORM\Entity
  */
-class Role
+class Roles extends Role
 {
     /**
      * @var integer
@@ -50,6 +50,15 @@ class Role
         $this->login = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getRole()
+    {
+        return $this->getName();
+    }
+
+    public function __toString()
+    {
+        return $this->getRole();
+    }
 
     /**
      * Get id

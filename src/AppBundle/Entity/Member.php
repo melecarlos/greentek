@@ -86,6 +86,12 @@ class Member
      * @ORM\OneToMany(targetEntity="Message", mappedBy="member", cascade={"persist", "remove"})
      */
     protected $messages;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Login", mappedBy="member", cascade={"persist", "remove"})
+     */
+    protected $login;
+
     /**
      * Constructor.
      */
@@ -334,6 +340,20 @@ class Member
     public function clearMessages()
     {
         $this->getMessages()->clear();
+    }
+
+
+    public function setLogin(Login $login = null)
+    {
+        $this->login = $login;
+        $login->setMember($this);
+
+        return $this;
+    }
+
+    public function getLogin()
+    {
+        return $this->login;
     }
 
 }

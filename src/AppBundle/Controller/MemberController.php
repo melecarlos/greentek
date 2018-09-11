@@ -11,9 +11,11 @@ use AppBundle\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Member controller.
@@ -179,18 +181,70 @@ class MemberController extends Controller
     /**
      * Finds and displays a member entity.
      *
-     * @Route("/{id}", name="member_show")
+     * @Route("/show/{id}", name="member_show")
      * @Method("GET")
      */
-    public function showAction(Member $member)
+    public function showAction($id)
     {
-        $deleteForm = $this->createDeleteForm($member);
+        //$deleteForm = $this->createDeleteForm($member);
 
         return $this->render('member/show.html.twig', array(
-            'member' => $member,
-            'delete_form' => $deleteForm->createView(),
+           // 'member' => $member,
+            //'delete_form' => $deleteForm->createView(),
         ));
     }
+
+    /**
+     * @Route("/usuario/registro", name="usuario_registro")
+     * @Method({"GET", "POST"})
+     */
+    public function registerUserAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $user = new Member();
+        $user->setStatus('active');
+        $user->setIp($this->container->get('request_stack')->getCurrentRequest()->getClientIp());
+        $form = $this->createForm('AppBundle\Form\UserType', $user);
+        $form->handleRequest($request);
+        //validation
+        $validator = $this->get('validator');
+        $errors = $validator->validate($user);
+        if($form->isSubmitted() && $form->isValid() && count($errors)==0){
+            $login    = $user->getLogin();
+            $password = $passwordEncoder->encodePassword($login, $login->getPassword());
+            $login->setPassword($password);
+            $login->setIp($this->container->get('request_stack')->getCurrentRequest()->getClientIp());
+            $em         = $this->getDoctrine()->getManager();
+            $role       = $em->getRepository('AppBundle:Roles')->findOneBy(array('name'=>'ROLE_ADMIN'));
+            if($role){
+                $login->addRole($role);
+            }
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('usuario_show', array('id' => $user->getId()));
+        }
+        return $this->render('member/newUser.html.twig', array(
+            'user'    => $user,
+            'form'    => $form->createView(),
+            'errors'  => $errors,
+        ));
+    }
+
+    /**
+     * Finds and displays a member entity.
+     *
+     * @Route("/usuario/{id}", name="usuario_show")
+     * @Method("GET")
+     */
+    public function showUserAction($id)
+    {
+        $em         = $this->getDoctrine()->getManager();
+        $member     = $em->getRepository('AppBundle:Member')->find($id);
+        return $this->render('member/showUser.html.twig', array(
+            'member' => $member,
+            //'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
 
     /**
      * Displays a form to edit an existing member entity.
@@ -217,39 +271,6 @@ class MemberController extends Controller
         ));
     }
 
-    /**
-     * Deletes a member entity.
-     *
-     * @Route("/{id}", name="member_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, Member $member)
-    {
-        $form = $this->createDeleteForm($member);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($member);
-            $em->flush();
-        }
 
-        return $this->redirectToRoute('member_index');
-    }
-
-    /**
-     * Creates a form to delete a member entity.
-     *
-     * @param Member $member The member entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Member $member)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('member_delete', array('id' => $member->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
 }
