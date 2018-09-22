@@ -173,6 +173,13 @@ $(document).ready(function(){
             });
         }
     });
+    $('#appbundle_member_quotations_0_installation').change(function(){
+        if(this.value==2){
+            $('#appbundle_member_companies_0_name').prop("readonly", false);
+        }else{
+            $('#appbundle_member_companies_0_name').prop("readonly", true);
+        }
+    });
 });
 </script>
 {% endblock %}

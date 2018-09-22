@@ -78,6 +78,11 @@ class MemberController extends Controller
             foreach($member->getEmails() as $e){
                 $email = $e->getEmail();
             }
+            foreach($member->getCompanies() as $c){
+                if($c->getName()==null){
+                    $member->clearCompanies();
+                }
+            }
             $forename = $member->getForename();
             $lastname = $member->getLastname();
             $em->persist($member);

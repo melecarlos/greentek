@@ -315,6 +315,10 @@ class Member
         return $this;
     }
 
+    public function clearCompanies()
+    {
+        $this->getCompanies()->clear();
+    }
 
     /**
      * @return mixed

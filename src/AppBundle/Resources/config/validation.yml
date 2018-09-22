@@ -27,11 +27,11 @@ AppBundle\Entity\Phone:
               match:   false
               message: Ingrese números.
 
-AppBundle\Entity\Company:
-    properties:
-        name:
-          - NotBlank:
-              message: Ingrese el nombre de la empresa
+#AppBundle\Entity\Company:
+#    properties:
+#        name:
+#          - NotBlank:
+#              message: Ingrese el nombre de la empresa
 
 
 AppBundle\Entity\Quotation:

@@ -18,9 +18,9 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label'     => 'Empresa * ',
+                'label'     => 'Empresa',
                 'required'  => false,
-                'attr'      => array('class' => 'form-control'),
+                'attr'      => array('class' => 'form-control', 'readonly' => true)
             ))
             //->add('createdDate')
             //->add('member')
