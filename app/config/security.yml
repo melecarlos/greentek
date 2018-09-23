@@ -18,6 +18,9 @@ security:
                 check_path: login
                 default_target_path: admin
                 always_use_default_target_path: true
+            logout:
+                path:   /login/logout
+                target: /login
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
