@@ -1,20 +1,43 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layoutLogin.html.twig' %}
 
 {% block contenido %}
 
-<div class="login_wrapper">
-    <div class="animate form login_form">
-        <section class="login_content">
-        {{ form_start(form) }}
-            <h1>Crear cuenta</h1>
-            {{ form_row(form.forename) }}
-            {{ form_row(form.lastname) }}
-            {{ form_row(form.login.username) }}
-            {{ form_row(form.login.password.first) }}
-            {{ form_row(form.login.password.second) }}
-            {{ form_row(form.save) }}
-        {{ form_end(form) }}
-        </section>
+    <div class="login-logo">
+        <h1>Crear cuenta</h1>
     </div>
-</div>
+    <div class="login-box-body">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-12 col-xs-12 form-group">
+            {{ form_row(form.forename) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 form-group">
+            {{ form_row(form.lastname) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 form-group">
+            {{ form_row(form.login.username) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 form-group">
+            {{ form_row(form.login.password.first) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 form-group">
+            {{ form_row(form.login.password.second) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 form-group">
+                <center>{{ form_row(form.save) }}</center>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
 {% endblock %}
