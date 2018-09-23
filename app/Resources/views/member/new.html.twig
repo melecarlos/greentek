@@ -1,36 +1,33 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_lte.html.twig' %}
 
 {% block contenido %}
-<div class="right_col" role="main">
-
+<section class="content">
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <center><img src="{{asset('Resources/images/greentek-logo.png')}}" class="img-responsive"></center>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-6 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2><b>Cotiza tu Sistema Fotovoltaico</b></h2>
-                    <div class="clearfix"></div>
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Cotiza tu Sistema Fotovoltaico</h3>
                 </div>
-                <div class="x_content">
+                <div class="box-body">
                     {{ form_start(form) }}
                         {% for q in form.quotations %}
                         <div class="row">
-                            <div class="col-md-4 col-xs-12">
+                            <div class="col-md-4 col-xs-12 form-group">
                                 {{ form_label(q.kwh) }}
                                 {{ form_widget(q.kwh) }}
                                 {{ form_errors(q.kwh) }}
                             </div>
-                            <div class="col-md-4 col-xs-12">
+                            <div class="col-md-4 col-xs-12 form-group">
                                 {{ form_label(q.percentage) }}
                                 {{ form_widget(q.percentage) }}
                                 {{ form_errors(q.percentage) }}
                             </div>
-                            <div class="col-md-4 col-xs-12">
+                            <div class="col-md-4 col-xs-12 form-group">
                                 {{ form_label(q.kwp) }}
                                 {{ form_widget(q.kwp) }}
                                 {{ form_errors(q.kwp) }}
@@ -38,19 +35,19 @@
                         </div>
                         {% endfor %}
                         <div class="row">
-                            <div class="col-md-6 col-xs-12">
+                            <div class="col-md-6 col-xs-12 form-group">
                                 {{ form_label(form.forename) }}
                                 {{ form_widget(form.forename) }}
                                 {{ form_errors(form.forename) }}
                             </div>
-                            <div class="col-md-6 col-xs-12">
+                            <div class="col-md-6 col-xs-12 form-group">
                                 {{ form_label(form.lastname) }}
                                 {{ form_widget(form.lastname) }}
                                 {{ form_errors(form.lastname) }}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-xs-12">
+                            <div class="col-md-6 col-xs-12 form-group">
                                 {% for e in form.emails %}
                                     <div id="{{ loop.index }}" class="form-exists">
                                     {{ form_label(e.email) }}
@@ -59,7 +56,7 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            <div class="col-md-6 col-xs-12">
+                            <div class="col-md-6 col-xs-12 form-group">
                                 {% for p in form.phones %}
                                     <div id="{{ loop.index }}" class="form-exists">
                                         {{ form_label(p.phone) }}
@@ -70,7 +67,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 col-xs-12">
+                            <div class="col-md-12 col-xs-12 form-group">
                                 {% for q in form.quotations %}
                                     <div id="{{ loop.index }}" class="form-exists">
                                         {{ form_label(q.installation) }}
@@ -81,7 +78,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 col-xs-12">
+                            <div class="col-md-12 col-xs-12 form-group">
                             {% for c in form.companies %}
                                 <div id="{{ loop.index }}" class="form-exists">
                                     {{ form_label(c.name) }}
@@ -92,7 +89,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 col-xs-12">
+                            <div class="col-md-12 col-xs-12 form-group">
                             {% for m in form.messages %}
                                 <div id="{{ loop.index }}" class="form-exists">
                                     {{ form_label(m.message) }}
@@ -103,7 +100,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 col-xs-12">
+                            <div class="col-md-12 col-xs-12 form-group">
                                 <br>
                                 <center>{{ form_row(form.save) }}</center>
                             </div>
@@ -112,17 +109,16 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-6 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2><b>Factura de Energía Eléctrica</b></h2>
-                    <div class="clearfix"></div>
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Factura de Energía Eléctrica</h3>
                 </div>
-                <div class="x_content">
+                <div class="box-body">
                     <center>
-                    <img src="{{asset('Resources/images/caess5.png')}}" class="img-responsive" alt="Consumo promedio" height="250" width="450">
+                    <img src="{{asset('Resources/images/caess5.png')}}" class="img-responsive" alt="Consumo promedio" height="300" width="500">
                     </center>
+                    <br>
                     <ol>
                         <li value="1">PARA LA ESTIMACIÓN SE REQUIERE INGRESAR DE UN RECIBO DE ELECTRICIDAD EL PROMEDIO DE CONSUMO DE ENERGÍA EN LOS ÚLTIMOS 6 MESES TAL CUAL SE MUESTRA EN LA FIGURA.
                         </li>
@@ -138,7 +134,7 @@
 
     </div>
 
-</div>
+</section>
 {% endblock %}
 
 {% block javascripts %}
