@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class QuotationType extends AbstractType
 {
@@ -44,13 +45,14 @@ class QuotationType extends AbstractType
                         'Empresarial' => 'Empresarial'
                     ),
                 ))
-                ->add('kwp', NumberType::class, array(
-                    'label'     => 'Potencia (kWp):',
+                ->add('kwp', HiddenType::class, array(
+                    'label'     => false,
                     'required'  => false,
                     'attr'      => array('class' => 'form-control', 'readonly' => true)
                 ));
 
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

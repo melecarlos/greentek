@@ -17,17 +17,19 @@
                     {{ form_start(form) }}
                         {% for q in form.quotations %}
                         <div class="row">
-                            <div class="col-md-4 col-xs-12 form-group">
+                            <div class="col-md-6 col-xs-12 form-group">
                                 {{ form_label(q.kwh) }}
                                 {{ form_widget(q.kwh) }}
                                 {{ form_errors(q.kwh) }}
                             </div>
-                            <div class="col-md-4 col-xs-12 form-group">
+                            <div class="col-md-6 col-xs-12 form-group">
                                 {{ form_label(q.percentage) }}
                                 {{ form_widget(q.percentage) }}
                                 {{ form_errors(q.percentage) }}
                             </div>
-                            <div class="col-md-4 col-xs-12 form-group">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-xs-12">
                                 {{ form_label(q.kwp) }}
                                 {{ form_widget(q.kwp) }}
                                 {{ form_errors(q.kwp) }}
