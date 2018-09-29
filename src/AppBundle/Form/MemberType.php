@@ -48,13 +48,6 @@ class MemberType extends AbstractType
                     'allow_delete'  => true,
                     'allow_add'     => true,
                 ))
-                ->add('companies', CollectionType::class, array(
-                    'label'         => false,
-                    'entry_type'    => CompanyType::class,
-                    'by_reference'  => false,
-                    'allow_delete'  => true,
-                    'allow_add'     => true,
-                ))
                 ->add('messages', CollectionType::class, array(
                     'label'         => false,
                     'entry_type'    => MessageType::class,

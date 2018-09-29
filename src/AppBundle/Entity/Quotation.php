@@ -46,9 +46,16 @@ class Quotation
     /**
      * @var string
      *
-     * @ORM\Column(name="installation", type="string", nullable=true)
+     * @ORM\Column(name="installation", type="string", length=45, nullable=true)
      */
     private $installation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string", length=100, nullable=true)
+     */
+    private $company;
 
     /**
      * @var \DateTime
@@ -169,6 +176,26 @@ class Quotation
     public function getInstallation()
     {
         return $this->installation;
+    }
+
+    /**
+     * Set company
+     * @param string $company
+     * @return Quotation
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
+     * Get company
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
     }
 
     /**

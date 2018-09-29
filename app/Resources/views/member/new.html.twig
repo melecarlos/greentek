@@ -79,6 +79,14 @@
                                 {% endfor %}
                             </div>
                             <div class="col-md-6 col-xs-12 form-group">
+                                {% for q in form.quotations %}
+                                    <div id="{{ loop.index }}" class="form-exists">
+                                        {{ form_label(q.company) }}
+                                        {{ form_widget(q.company) }}
+                                        {{ form_errors(q.company) }}
+                                    </div>
+                                {% endfor %}
+                            {#
                             {% for c in form.companies %}
                                 <div id="{{ loop.index }}" class="form-exists">
                                     {{ form_label(c.name) }}
@@ -86,6 +94,7 @@
                                     {{ form_errors(c.name) }}
                                 </div>
                             {% endfor %}
+                            #}
                             </div>
                         </div>
                         <div class="row">
@@ -170,9 +179,9 @@ $(document).ready(function(){
     });
     $('#appbundle_member_quotations_0_installation').change(function(){
         if(this.value==2){
-            $('#appbundle_member_companies_0_name').prop("readonly", false);
+            $('#appbundle_member_quotations_0_company').prop("readonly", false);
         }else{
-            $('#appbundle_member_companies_0_name').prop("readonly", true);
+            $('#appbundle_member_quotations_0_company').prop("readonly", true);
         }
     });
 });

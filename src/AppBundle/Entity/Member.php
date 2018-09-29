@@ -77,12 +77,6 @@ class Member
 
     /**
      * @Assert\Valid
-     * @ORM\OneToMany(targetEntity="Company", mappedBy="member", cascade={"persist", "remove"})
-     */
-    protected $companies;
-
-    /**
-     * @Assert\Valid
      * @ORM\OneToMany(targetEntity="Message", mappedBy="member", cascade={"persist", "remove"})
      */
     protected $messages;
@@ -100,7 +94,6 @@ class Member
         $this->emails      = new \Doctrine\Common\Collections\ArrayCollection();
         $this->quotations  = new \Doctrine\Common\Collections\ArrayCollection();
         $this->phones      = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->companies   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->messages    = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -292,32 +285,6 @@ class Member
             $phone->setMember($this);
         }
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCompanies()
-    {
-        return $this->companies;
-    }
-
-    /**
-     * @param mixed $companies
-     * @return Member
-     */
-    public function setCompanies(\Doctrine\Common\Collections\Collection $companies)
-    {
-        $this->companies = $companies;
-        foreach($companies as $company){
-            $company->setMember($this);
-        }
-        return $this;
-    }
-
-    public function clearCompanies()
-    {
-        $this->getCompanies()->clear();
     }
 
     /**

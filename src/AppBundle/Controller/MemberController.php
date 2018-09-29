@@ -52,11 +52,6 @@ class MemberController extends Controller
             $phone->setPhone('');
             $member->getPhones()->add($phone);
         }
-        if(count($member->getCompanies())==0){
-            $company = new Company();
-            $company->setName('');
-            $member->getCompanies()->add($company);
-        }
         if(count($member->getMessages())==0){
             $message = new Message();
             $message->setMessage('');
@@ -77,11 +72,6 @@ class MemberController extends Controller
             }
             foreach($member->getEmails() as $e){
                 $email = $e->getEmail();
-            }
-            foreach($member->getCompanies() as $c){
-                if($c->getName()==null){
-                    $member->clearCompanies();
-                }
             }
             $forename = $member->getForename();
             $lastname = $member->getLastname();

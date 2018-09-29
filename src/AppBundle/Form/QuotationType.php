@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class QuotationType extends AbstractType
 {
@@ -44,6 +45,11 @@ class QuotationType extends AbstractType
                         'Residencial' => 'Residencial',
                         'Empresarial' => 'Empresarial'
                     ),
+                ))
+                ->add('company', TextType::class, array(
+                    'label'     => 'Empresa',
+                    'required'  => false,
+                    'attr'      => array('class' => 'form-control', 'readonly' => true)
                 ))
                 ->add('kwp', HiddenType::class, array(
                     'label'     => false,

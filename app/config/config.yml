@@ -103,9 +103,9 @@ easy_admin:
             label: "Cotizaciones"
             list:
                 title: "Detalles de las cotizaciones"
-                fields: ['id', {property: 'member.forename', label: 'Nombres'}, {property: 'member.lastname', label: 'Apellidos'}, {property: 'installation', label: 'Tipo de instalación'}, {property: 'kwh', label: 'Consumo mensual (kWh)'}, {property: 'percentage', label: 'Porcentaje de ahorro'}, {property: 'kwp', label: 'Potencia (kWp)'}, {property: 'createdDate', label: 'Fecha de creación'}]
+                fields: ['id', {property: 'member.forename', label: 'Nombres'}, {property: 'member.lastname', label: 'Apellidos'}, {property: 'installation', label: 'Tipo de instalación'}, {property: 'company', label: 'Empresa'}, {property: 'kwh', label: 'Consumo mensual (kWh)'}, {property: 'percentage', label: 'Porcentaje de ahorro'}, {property: 'kwp', label: 'Potencia (kWp)'}, {property: 'createdDate', label: 'Fecha de creación'}]
             search:
-                fields: ['id', 'member', 'installation', 'kwh', 'percentage', 'kwp','createdDate']
+                fields: ['id', 'member', 'installation', 'company', 'kwh', 'percentage', 'kwp','createdDate']
         Email:
             class: AppBundle\Entity\Email
             label: 'Correos'
@@ -122,7 +122,6 @@ easy_admin:
                 fields: ['id', {property: 'member.forename', label: 'Nombres'}, {property: 'member.lastname', label: 'Apellidos'}, {property: 'phone', label: 'Teléfonos'}, {property: 'createdDate', label: 'Fecha de creación'}]
             search:
                 fields: ['id', 'member', 'phone', 'createdDate']
-
         Message:
             class: AppBundle\Entity\Message
             label: 'Mensajes'
@@ -131,4 +130,3 @@ easy_admin:
                 fields: ['id', {property: 'member.forename', label: 'Nombres'}, {property: 'member.lastname', label: 'Apellidos'}, {property: 'message', label: 'Mensajes'}, {property: 'createdDate', label: 'Fecha de creación'}]
             search:
                 fields: ['id', 'member', 'message','createdDate']
-
