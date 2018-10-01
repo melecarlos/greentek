@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Member;
+use AppBundle\Entity\Login;
 use AppBundle\Entity\Quotation;
 use AppBundle\Entity\Email;
 use AppBundle\Entity\Phone;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * Member controller.
@@ -157,35 +159,63 @@ class MemberController extends Controller
     }
 
     /**
-     * Lists all member entities.
-     *
-     * @Route("/index", name="member_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $members = $em->getRepository('AppBundle:Member')->findAll();
-
-        return $this->render('member/index.html.twig', array(
-            'members' => $members,
-        ));
-    }
-
-    /**
-     * Finds and displays a member entity.
+     * mensaje al enviar la cotización.
      *
      * @Route("/show/{id}", name="member_show")
      * @Method("GET")
      */
     public function showAction($id)
     {
-        //$deleteForm = $this->createDeleteForm($member);
+        return $this->render('member/show.html.twig', array());
+    }
 
-        return $this->render('member/show.html.twig', array(
-           // 'member' => $member,
-            //'delete_form' => $deleteForm->createView(),
+
+    /** CONTROLLERS DE USUARIOS **/
+
+    /**
+     * Lists all user entities.
+     *
+     * @Route("/usuario", name="user_index")
+     * @Method("GET")
+     */
+    public function indexUsersAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $members = $em->getRepository('AppBundle:Member')->findAll();
+        $users = $em->getRepository('AppBundle:Member')->findAllUsers();
+        return $this->render('member/indexUser.html.twig', array(
+            'members'   => $members,
+            'users'     => $users
+        ));
+    }
+
+    /**
+     * Ajax que cambia el password de un usuario
+     * @Route("/usuario/reset/password", name="user_reset_password")
+     */
+    public function passwordResetAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $isAjax     = $request->isXMLhttpRequest();
+        $menssage   = null;
+        if($isAjax){
+            $id  = (int)$request->query->get('loginId');
+            $password = $request->query->get('pass');
+            $login = $em->getRepository('AppBundle:Login')->find($id);
+            //$member   = $login->getMember();
+            if($login){
+                $newPassword = $passwordEncoder->encodePassword($login, $password);
+                $login->setPassword($newPassword);
+                $em->persist($login);
+                $em->flush();
+                $menssage = 'Contraseña cambiada existosamente';
+            }
+        } //fin Ajax
+        return new Response($this->renderView(
+            'security/contenido.html.twig', array(
+                //'member'    => $member,
+                'menssage'  => $menssage,
+            )
         ));
     }
 

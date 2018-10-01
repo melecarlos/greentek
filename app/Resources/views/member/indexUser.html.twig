@@ -1,0 +1,137 @@
+{% extends 'layout_lte.html.twig' %}
+{% block css -%}
+    {{parent()}}
+    <link href="{{ asset('Resources/gentelella/vendors/hideshowpassword/css/example.minimal.css') }}" rel="stylesheet" media="all">
+
+    <style type="text/css">
+        #pswd_info {
+            position:absolute;
+            top:100px;
+            right:270px;
+            width:250px;
+            padding:15px;
+            background:#fefefe;
+            font-size:.875em;
+            border-radius:5px;
+            box-shadow:0 1px 3px #ccc;
+            border:1px solid #ddd;
+        }
+        #pswd_info::before {
+            content: "\25B6";
+            position:absolute;
+            top:35px;
+            left:100%;
+            font-size:14px;
+            line-height:14px;
+            color:#ddd;
+            text-shadow:none;
+            display:block;
+        }
+        .invalid {
+            background:url({{asset('Resources/img/cancel.png')}}) no-repeat 0 50%;
+            padding-left:22px;
+            line-height:24px;
+            color:#ec3f41;
+        }
+        .valid {
+            background:url({{asset('Resources/img/accept.png')}}) no-repeat 0 50%;
+            padding-left:22px;
+            line-height:24px;
+            color:#3a7d34;
+        }
+        #pswd_info {
+            display:none;
+        }
+    </style>
+{%- endblock %}
+{% block contenido %}
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Usuarios Registrados</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Nombres</th>
+                            <th>Usuario</th>
+                            <th>Status</th>
+                            <th style="width: 60px">Acción</th>
+                        </tr>
+                        {% for u in users %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ u.forename }} {{ u.lastname }}</td>
+                            <td>{{ u.login.username }}</td>
+                            <td>{{ u.status }}</td>
+                            <td>
+                                <a href="#" title="Cambiar Contraseña" data-toggle="popover" data-content="{% include "security/resetPasswordAdmin.html.twig" with { 'member': u } %}" class="btn btn-block btn-default btn-sm"><i class="fa fa-unlock-alt"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                {#
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+                #}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+{% block js -%}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('Resources/gentelella/vendors/pwstrength/jquery.pwstrength.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/gentelella/vendors/dotimeout/jquery.ba-dotimeout.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/gentelella/vendors/hideshowpassword/hideShowPassword.min.js')}}"></script>
+{%- endblock %}
+{% block javascripts -%}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("[data-toggle=popover]").popover({
+                placement : 'auto left',
+                html: true
+            });
+            //$('[data-toggle="popover"]').popover();
+            /*
+            $(".btn-block").click(function(){
+                alert("Algo");
+            });
+            */
+            {#
+            $("#tablacontenido").on("click",".pagination li a", function(){
+                $('#tablacontenido').html('<center><img src="{{ asset(loading) }}"></center>');
+                $.get($(this).attr("href"), function(data) {
+                    $('#tablacontenido').html(data);
+                });
+                return false;
+            });
+
+            $('#isearch').keyup(function(){
+                $(this).doTimeout( '#tablacontenido', 575, function(){
+                    $('#tablacontenido').html('<center><img src="{{ asset(loading) }}"></center>');
+                    var url="{{path('isystem_member_reset',{'type':type})}}";
+                    $.get(url, { search: $(this).val() }).done(function(data){
+                        $('#tablacontenido').html(data);
+                    });
+                });
+            });
+            #}
+        });
+    </script>
+{% endblock %}
