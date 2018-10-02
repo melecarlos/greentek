@@ -183,9 +183,6 @@ class MemberController extends Controller
         $em = $this->getDoctrine()->getManager();
         $members = $em->getRepository('AppBundle:Member')->findAll();
         $users = $em->getRepository('AppBundle:Member')->findAllUsers();
-        $login    = $em->getRepository('AppBundle:Login')->find(1);
-        $member   = $login->getMember();
-        dump($login, $member);
         return $this->render('member/indexUser.html.twig', array(
             'members'   => $members,
             'users'     => $users
