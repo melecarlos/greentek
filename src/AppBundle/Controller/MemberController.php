@@ -183,6 +183,9 @@ class MemberController extends Controller
         $em = $this->getDoctrine()->getManager();
         $members = $em->getRepository('AppBundle:Member')->findAll();
         $users = $em->getRepository('AppBundle:Member')->findAllUsers();
+        $login    = $em->getRepository('AppBundle:Login')->find(1);
+        $member   = $login->getMember();
+        dump($login, $member);
         return $this->render('member/indexUser.html.twig', array(
             'members'   => $members,
             'users'     => $users
@@ -197,24 +200,26 @@ class MemberController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $isAjax     = $request->isXMLhttpRequest();
-        $menssage   = null;
+        $message   = null;
         if($isAjax){
-            $id  = (int)$request->query->get('loginId');
-            $password = $request->query->get('pass');
-            $login = $em->getRepository('AppBundle:Login')->find($id);
-            //$member   = $login->getMember();
-            if($login){
-                $newPassword = $passwordEncoder->encodePassword($login, $password);
-                $login->setPassword($newPassword);
-                $em->persist($login);
-                $em->flush();
-                $menssage = 'Contraseña cambiada existosamente';
+            $id       = $request->request->get('id');
+            $password = $request->request->get('pass');
+            if($id and $password){
+                $login    = $em->getRepository('AppBundle:Login')->find((int) $id);
+                $member   = $login->getMember();
+                if($login){
+                    $newPassword = $passwordEncoder->encodePassword($login, $password);
+                    $login->setPassword($newPassword);
+                    $em->persist($login);
+                    $em->flush();
+                    $message = 'Contraseña cambiada exitosamente';
+                }
             }
         } //fin Ajax
         return new Response($this->renderView(
             'security/contenido.html.twig', array(
-                //'member'    => $member,
-                'menssage'  => $menssage,
+                'member'    => $member,
+                'message'  => $message,
             )
         ));
     }
