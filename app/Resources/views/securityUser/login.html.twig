@@ -1,5 +1,5 @@
 {% extends 'layoutLogin.html.twig' %}
-{% block title %}Iniciar sesión | GreenTek {% endblock %}
+{% block title %}Iniciar usuarios {% endblock %}
 {% block contenido %}
     <div class="login-logo">
         <h1>Ingreso de Usuario</h1>
@@ -9,7 +9,7 @@
             {% if error %}
                 <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-            <form action="{{ path('admin_login') }}" method="post">
+            <form action="{{ path('user_login') }}" method="post">
                 <div class="form-group has-feedback">
                     <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Usuario" required="" />
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -20,9 +20,9 @@
                 </div>
                 <div class="row">
                     <center>
-                    <div class="col-xs-offset-3 col-xs-6">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
-                    </div>
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+                        </div>
                     </center>
                 </div>
             </form>

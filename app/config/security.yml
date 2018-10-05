@@ -11,21 +11,37 @@ security:
                 property: username
 
     firewalls:
-        main:
+
+        admin_secured_area:
+            pattern: /admin
             anonymous: ~
             form_login:
-                login_path: login
-                check_path: login
-                default_target_path: admin
+                login_path: /admin/secured/login
+                check_path: /admin/secured/login
+                default_target_path: /admin
                 always_use_default_target_path: true
             logout:
-                path:   /login/logout
-                target: /login
+                path:   /admin/secured/logout
+                target: /admin/secured/login
+
+        user_secured_area:
+            pattern: /user
+            anonymous: ~
+            form_login:
+                login_path: /user/secured/login
+                check_path: /user/secured/login
+                default_target_path: /user
+                always_use_default_target_path: true
+            logout:
+                path:   /user/secured/logout
+                target: /user/secured/login
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/usuario, roles: ROLE_ADMIN }
+        - { path: ^/admin/secured/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/secured/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/*, roles: ROLE_ADMIN }
+        - { path: ^/user/*, roles: ROLE_ADMIN }

@@ -175,7 +175,7 @@ class MemberController extends Controller
     /**
      * Lists all user entities.
      *
-     * @Route("/usuario", name="user_index")
+     * @Route("/user", name="user_index")
      * @Method("GET")
      */
     public function indexUsersAction()
@@ -191,7 +191,7 @@ class MemberController extends Controller
 
     /**
      * Ajax que cambia el password de un usuario
-     * @Route("/usuario/reset/password", name="user_reset_password")
+     * @Route("/user/reset/password", name="user_reset_password")
      */
     public function passwordResetAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -222,7 +222,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/usuario/registro", name="usuario_registro")
+     * @Route("/user/registro", name="usuario_registro")
      * @Method({"GET", "POST"})
      */
     public function registerUserAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -259,7 +259,7 @@ class MemberController extends Controller
     /**
      * Finds and displays a member entity.
      *
-     * @Route("/usuario/{id}", name="usuario_show")
+     * @Route("/user/show/{id}", name="usuario_show")
      * @Method("GET")
      */
     public function showUserAction($id)

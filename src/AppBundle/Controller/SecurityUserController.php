@@ -8,12 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * @Route("/admin/secured")
+ * @Route("/user/secured")
  */
-class SecurityController extends Controller
+class SecurityUserController extends Controller
 {
     /**
-     * @Route("/login",name="admin_login")
+     * @Route("/login", name="user_login")
      */
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
@@ -23,14 +23,14 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', array(
+        return $this->render('securityUser/login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
     }
 
     /**
-     * @Route("/login_check", name="admin_security_check")
+     * @Route("/login_check", name="user_app_login_check")
      */
     public function securityCheckAction()
     {
@@ -38,7 +38,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/logout", name="admin_logout")
+     * @Route("/logout", name="user_app_logout")
      */
     public function logoutAction()
     {
