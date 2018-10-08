@@ -83,7 +83,7 @@ class MemberController extends Controller
             $message = (new \Swift_Message('[Greentek] Cotización Sistema Fotovoltaico'))
                 ->setFrom('cotiza@greentekca.com')
                 ->setTo($email)
-                //->attach(\Swift_Attachment::fromPath($urlQuotation))
+                ->setBcc('info@greentekca.com')
                 ->setBody($this->renderView('quotation/email.html.twig',array('forename'=>$forename, 'lastname'=>$lastname, 'kwp'=>$kwp)),'text/html');
             $mailer->send($message);
             return $this->redirectToRoute('member_show', array('id' => $member->getId()));
