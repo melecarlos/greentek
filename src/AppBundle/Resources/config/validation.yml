@@ -23,9 +23,9 @@ AppBundle\Entity\Phone:
           - NotBlank:
               message: Teléfono vacio
           - Regex:
-              pattern: '/\D/'
-              match:   false
-              message: Ingrese números.
+              pattern: '/^[0-9\-\(\)\/\+\s]*$/'
+              match:   true
+              message: Ingrese un teléfono válido.
 
 #AppBundle\Entity\Company:
 #    properties:
